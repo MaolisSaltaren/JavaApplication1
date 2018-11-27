@@ -1,0 +1,23 @@
+Para la realizacion de este proyecto se utilizó una programacio orientada a objetos en 
+donde primero de  definen las clases principales, para su posterior uso a traves de los CRUD
+en el paquete llamado MIS CLASES se encuentra una clase llamada CONEXIONBD en la cual se especifica lo siguiente:
+
+
+   driver="com.mysql.jdbc.Driver";
+   db="bd_flores";
+   hostname="localhost";
+   public static final String port="3306";
+   usuario="root";
+   pass="123456";
+
+si por algun motivo de deniega el acceso a la base de datos, se recomienda cambiar el nombre del servidor ( en caso de tener otro)
+el usuario y la contraseña al igual que el nombre de la base de datos.
+
+la insercion y modificacion de los datos de a base de datos se realizó a traves de procedimientos almacenados en la misma bd, con el objetivo de tener mayor efectividad 
+y rendimiento,cabe destacar que al importar la bd estos procedimientos tambien son creados por lo que no es necesario hacer ninguna configuracion adicional.
+
+
+
+
+
+   

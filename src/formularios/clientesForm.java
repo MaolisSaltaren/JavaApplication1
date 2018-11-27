@@ -90,23 +90,22 @@ public class clientesForm extends javax.swing.JDialog {
 
         jLabel3.setText("Email");
 
-        jTextField1.setText("jTextField1");
-
         jLabel8.setText("Tipo de documento:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula de ciudadania", "Cedula de extrangeria", "Tarjeta de identidad", "NIT", " " }));
 
         jLabel9.setText("Tipo de persona");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Persona Natural", "Persona Juridica" }));
 
         jLabel10.setText("sexo");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione\t", "Femenino", "Maculino" }));
 
         jLabel11.setText("Fecha");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setText("aaaa/mm/dd");
+        jTextField3.setToolTipText(" Formato valido aaaa/mm/dd");
         jTextField3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -114,7 +113,7 @@ public class clientesForm extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -133,8 +132,8 @@ public class clientesForm extends javax.swing.JDialog {
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 290, Short.MAX_VALUE)
                                     .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -146,8 +145,8 @@ public class clientesForm extends javax.swing.JDialog {
                                         .addGap(89, 89, 89)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                                                .addComponent(jComboBox3, 0, 290, Short.MAX_VALUE)
+                                                .addComponent(jTextField3))
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jButton1)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -156,7 +155,7 @@ public class clientesForm extends javax.swing.JDialog {
                                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 3, Short.MAX_VALUE))))))
                     .addComponent(jLabel11))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +202,7 @@ public class clientesForm extends javax.swing.JDialog {
                     .addComponent(jButton1)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -249,8 +248,8 @@ public class clientesForm extends javax.swing.JDialog {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(52, 52, 52)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,15 +257,15 @@ public class clientesForm extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
             .addGroup(layout.createSequentialGroup()
                 .addGap(406, 406, 406)
                 .addComponent(jLabel1)
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
