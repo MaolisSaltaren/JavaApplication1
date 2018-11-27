@@ -42,8 +42,8 @@ public class conexionBD {
        {
             Class.forName(driver);
             conn=DriverManager.getConnection(url,usuario,pass);
-       
-           //JOptionPane.showMessageDialog(null, " conecion  establecida");
+     
+           JOptionPane.showMessageDialog(null, " conecion  establecida");
            
        }
        catch (HeadlessException | ClassNotFoundException | SQLException ex ){

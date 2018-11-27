@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import misClases.Personas;
 import misClases.conexionBD;
+import formularios.ciudadesForm;
     
 
 public class principalForm extends javax.swing.JFrame {
@@ -129,16 +130,14 @@ public String Valortraido;
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         // TODO add your handling code here:
-        conexionBD conexion = new conexionBD();
-        Connection con = conexion.getConexion();
+      
     }//GEN-LAST:event_btnConectarActionPerformed
 
     private void btnIrPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrPedidosActionPerformed
         // TODO add your handling code here:
-      //  new pedidosForm(this,true).setVisible(true);
-       // new PersonasForm().setVisible(true);
-     //  clientesForm clientes = new clientesForm(this, rootPaneCheckingEnabled);
-      //  clientes.setVisible(true);
+       //new pedidosForm(this,true).setVisible(true);
+       //new PersonasForm().setVisible(true);
+        
     }//GEN-LAST:event_btnIrPedidosActionPerformed
 
     private void llamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamarActionPerformed
@@ -148,10 +147,7 @@ public String Valortraido;
 
     private void btnTraeValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraeValorActionPerformed
         // TODO add your handling code here:
-        Personas pers = new Personas();
-        
-        JOptionPane.showMessageDialog(null," identificacio="+ Valortraido);
-        
+      
     }//GEN-LAST:event_btnTraeValorActionPerformed
 
     /**
