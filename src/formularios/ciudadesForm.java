@@ -12,8 +12,6 @@ import javax.accessibility.AccessibleRole;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sun.security.jca.ProviderList;
-
-
 /**
  *
  * @author JUAN_PC
@@ -316,9 +314,9 @@ public class ciudadesForm extends javax.swing.JFrame {
       //actualiza la tabla en donde se muestran los datos 
       mostrar("call ciudadesBusqueda('')");
       txtNombreCiudad.setText("");
-         btnModificar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnGuardar.setEnabled(true);
+      btnModificar.setEnabled(false);
+      btnEliminar.setEnabled(false);
+      btnGuardar.setEnabled(true);
   
     }//GEN-LAST:event_btnModificarActionPerformed
 
