@@ -43,7 +43,7 @@ public class conexionBD {
             Class.forName(driver);
             conn=DriverManager.getConnection(url,usuario,pass);
      
-           JOptionPane.showMessageDialog(null, " conecion  establecida");
+           //JOptionPane.showMessageDialog(null, " conecion  establecida");
            
        }
        catch (HeadlessException | ClassNotFoundException | SQLException ex ){
@@ -71,6 +71,44 @@ public class conexionBD {
                
        return datos;
    }
+   
+     public  int ejecutarSQL(String insert)
+    {
+       
+     
+       int resultado=0;
+     
+        // ejemplo de vectore en java
+
+            JOptionPane.showMessageDialog(null, ""+insert);
+     
+      try
+        {
+            PreparedStatement parametros=getConexion().prepareStatement(insert);
+            
+              resultado = parametros.executeUpdate(); //actualiza la bd
+   
+            if(resultado>0)
+            {
+                    JOptionPane.showMessageDialog(null, "Registro guardado con exito ");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, " no se guardo el registro");
+                        
+            }
+            
+           getConexion().close();// cierra la conexion con la base de datos
+            
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+        } 
+     
+        return resultado;
+        
+          
+    }
    
    
    

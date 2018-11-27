@@ -28,86 +28,45 @@ public String Valortraido;
     private void initComponents() {
 
         panelEscritorio = new javax.swing.JDesktopPane();
-        btnConectar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtidentifi = new javax.swing.JEditorPane();
-        btnIrPedidos = new javax.swing.JButton();
-        llamar = new javax.swing.JButton();
-        btnTraeValor = new javax.swing.JButton();
+        btnIr = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
         setExtendedState(getExtendedState());
 
-        btnConectar.setText("Conectar");
-        btnConectar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConectarActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setViewportView(txtidentifi);
 
-        btnIrPedidos.setText("Mostrar Pedidos");
-        btnIrPedidos.addActionListener(new java.awt.event.ActionListener() {
+        btnIr.setText("ir");
+        btnIr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIrPedidosActionPerformed(evt);
+                btnIrActionPerformed(evt);
             }
         });
 
-        llamar.setText("llaar a ejemplo");
-        llamar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llamarActionPerformed(evt);
-            }
-        });
-
-        btnTraeValor.setText("traer valor de otraventana");
-        btnTraeValor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTraeValorActionPerformed(evt);
-            }
-        });
-
-        panelEscritorio.setLayer(btnConectar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelEscritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelEscritorio.setLayer(btnIrPedidos, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelEscritorio.setLayer(llamar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelEscritorio.setLayer(btnTraeValor, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelEscritorio.setLayer(btnIr, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelEscritorioLayout = new javax.swing.GroupLayout(panelEscritorio);
         panelEscritorio.setLayout(panelEscritorioLayout);
         panelEscritorioLayout.setHorizontalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscritorioLayout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
+                .addContainerGap(122, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnIrPedidos)
-                    .addComponent(btnConectar))
-                .addGap(355, 355, 355))
-            .addGroup(panelEscritorioLayout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addComponent(llamar)
-                .addGap(122, 122, 122)
-                .addComponent(btnTraeValor)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(btnIr)
+                .addGap(257, 257, 257))
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEscritorioLayout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConectar)
+                    .addComponent(btnIr)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(btnIrPedidos)
-                .addGap(18, 18, 18)
-                .addGroup(panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(llamar)
-                    .addComponent(btnTraeValor))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,40 +74,26 @@ public String Valortraido;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelEscritorio)
-                .addGap(0, 60, Short.MAX_VALUE))
+                .addComponent(panelEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelEscritorio)
-                .addGap(0, 38, Short.MAX_VALUE))
+                .addComponent(panelEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
+    private void btnIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrActionPerformed
         // TODO add your handling code here:
-      
-    }//GEN-LAST:event_btnConectarActionPerformed
-
-    private void btnIrPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrPedidosActionPerformed
-        // TODO add your handling code here:
-       //new pedidosForm(this,true).setVisible(true);
-       //new PersonasForm().setVisible(true);
+        JOptionPane.showMessageDialog(null, "hola");  JOptionPane.showMessageDialog(null, "juan");
+        ciudadesForm llamar = new ciudadesForm();
+        llamar.setVisible(true);
         
-    }//GEN-LAST:event_btnIrPedidosActionPerformed
-
-    private void llamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamarActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_llamarActionPerformed
-
-    private void btnTraeValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraeValorActionPerformed
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_btnTraeValorActionPerformed
+    }//GEN-LAST:event_btnIrActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,11 +118,8 @@ public String Valortraido;
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConectar;
-    private javax.swing.JButton btnIrPedidos;
-    private javax.swing.JButton btnTraeValor;
+    private javax.swing.JButton btnIr;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton llamar;
     private javax.swing.JDesktopPane panelEscritorio;
     private javax.swing.JEditorPane txtidentifi;
     // End of variables declaration//GEN-END:variables

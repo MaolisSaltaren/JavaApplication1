@@ -22,43 +22,7 @@ public class PersonaCrud {
    ////-----------------------------------------------------
     // METODO PARA INSERTAR DATOS
     
-    public  int ejecutarSQL(String insert)
-    {
-       
-    
-       int resultado=0;
-     
-        // ejemplo de vectore en java
-
-            JOptionPane.showMessageDialog(null, ""+insert);
-     
-      try
-        {
-            PreparedStatement parametros=conexion.getConexion().prepareStatement(insert);
-            
-              resultado = parametros.executeUpdate(); //actualiza la bd
-   
-            if(resultado>0)
-            {
-                    JOptionPane.showConfirmDialog(null, " se guardo");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "no se guardo el registro");
-                        
-            }
-            
-            conexion.getConexion().close();// cierra la conexion con la base de datos
-            
-        }catch(SQLException e){
-           
-            JOptionPane.showMessageDialog(null,"Error"+e.toString());
-        } 
-     
-        return resultado;
-        
-          
-    }
+  
     
     
     
