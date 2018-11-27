@@ -137,8 +137,8 @@ public String Valortraido;
         // TODO add your handling code here:
       //  new pedidosForm(this,true).setVisible(true);
        // new PersonasForm().setVisible(true);
-       clientesForm clientes = new clientesForm(this, rootPaneCheckingEnabled);
-        clientes.setVisible(true);
+     //  clientesForm clientes = new clientesForm(this, rootPaneCheckingEnabled);
+      //  clientes.setVisible(true);
     }//GEN-LAST:event_btnIrPedidosActionPerformed
 
     private void llamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamarActionPerformed
