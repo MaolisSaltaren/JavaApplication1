@@ -8,6 +8,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static java.lang.Class.forName;
+import java.awt.HeadlessException;
+import java.sql.*;
+
+import javax.swing.JOptionPane;
 
 
 /**
@@ -47,5 +52,27 @@ public class conexionBD {
        }
        return conn;
    }
+      //metodo que lle los datos de una tabla
+   public static ResultSet getTabla(String consulta)
+   {
+       Connection con= getConexion();
+       Statement st;
+       ResultSet datos =null;
+       try
+       {
+           st = con.createStatement();
+           datos=st.executeQuery(consulta);
+        
+       }
+       catch (Exception e )
+       {
+           JOptionPane.showMessageDialog(null, "Error"+e.toString());
+       }
+               
+       return datos;
+   }
+   
+   
+   
 
 }
