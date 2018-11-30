@@ -5,7 +5,10 @@
  */
 package formularios;
 
+
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import misClases.conexionBD;
@@ -22,10 +25,11 @@ public class clientesForm extends javax.swing.JDialog {
     public clientesForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        mostrar(" select PERS_IDENTIFICACION, PERS_NOMBRE from tbl_personas;");
+        mostrar("call personasBusqueda('');");
         // deshabilitar botones por seguridad
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
+        
     }
 
     /**
@@ -98,7 +102,7 @@ public class clientesForm extends javax.swing.JDialog {
             }
         });
 
-        btnEliminar.setText("Salir");
+        btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -111,7 +115,7 @@ public class clientesForm extends javax.swing.JDialog {
 
         jLabel8.setText("Tipo de documento:");
 
-        cmbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula de ciudadania", "Cedula de extrangeria", "Tarjeta de identidad", "NIT", " " }));
+        cmbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Masculino", "Femenino" }));
         cmbSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSexoActionPerformed(evt);
@@ -128,15 +132,7 @@ public class clientesForm extends javax.swing.JDialog {
 
         jLabel12.setText("Nombre");
 
-        txtNombre.setText("jTextField5");
-
-        txtTelenofo.setText("jTextField7");
-
-        txtDireccion.setText("jTextField8");
-
-        txtEmail.setText("jTextField8");
-
-        cmbTipoDocumento1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula de ciudadania", "Cedula de extrangeria", "Tarjeta de identidad", "NIT", " " }));
+        cmbTipoDocumento1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula de ciudadania", "Cedula de extrangeria", "Tarjeta de identidad", "NIT" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,9 +230,19 @@ public class clientesForm extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
             }
         ));
+        tableListarClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableListarClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableListarClientes);
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 153, 102));
@@ -261,11 +267,11 @@ public class clientesForm extends javax.swing.JDialog {
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel13))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel13)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(15, 15, 15)
@@ -331,22 +337,136 @@ public class clientesForm extends javax.swing.JDialog {
         // TODO add your handling code here:
          conexionBD insertarCiudades = new conexionBD();
       //inserta un registro en la base de datos  
-      insertarCiudades.ejecutarSQL("call personasInsertar('"+txtIdentificacion.getText().toString()+"');");
-     // call cuidadesInsertar('dibulla');
+      
+      //Date fechana= Date.valueOf(txtFechaNa.getText());
+      try   
+      {
+      insertarCiudades.ejecutarSQL("call personasInsertar("
+              +"'"+txtIdentificacion.getText()+"',"
+              +"'"+cmbTipoDocumento1.getSelectedItem().toString()+"',"
+              +"'"+ txtNombre.getText()+"',"
+              +"'"+txtTelenofo.getText()+"',"
+              +"'"+ txtDireccion.getText()+"',"
+              +"'"+txtEmail.getText()+"',"
+              +"'"+ cmbSexo.getSelectedItem().toString()+"',"
+              +"'"+ Date.valueOf(txtFechaNa.getText())
+               
+              +"');");
+      }
+      catch (Exception e )
+      {
+          JOptionPane.showMessageDialog(null," No se ha pidido realizar la operacion por favor, verifique que el formato de la fecha sea correcto y que  todos los campos esten correctamente diligenciados");
+      }
+    
       
       //actualiza la tabla en donde se muestran los datos 
       mostrar("call personasBusqueda('');");
+      limpiarCajas();
+      cmbSexo.setSelectedIndex(0);
+      cmbTipoDocumento1.setSelectedIndex(0);
     
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+            // TODO add your handling code here:
+         conexionBD modificarClientes = new conexionBD();
+         
+        try   
+      {
+      modificarClientes.ejecutarSQL("call personasModificar("
+              +"'"+txtIdentificacion.getText()+"',"
+              +"'"+cmbTipoDocumento1.getSelectedItem().toString()+"',"
+              +"'"+ txtNombre.getText()+"',"
+              +"'"+txtTelenofo.getText()+"',"
+              +"'"+ txtDireccion.getText()+"',"
+              +"'"+txtEmail.getText()+"',"
+              +"'"+ cmbSexo.getSelectedItem().toString()+"',"
+              +"'"+ Date.valueOf(txtFechaNa.getText())
+               
+              +"');");
+      }
+      catch (Exception e )
+      {
+          JOptionPane.showMessageDialog(null," No se ha pidido realizar la operacion por favor, verifique que el formato de la fecha sea correcto y que  todos los campos esten correctamente diligenciados");
+      }
+    
+     //actualiza la tabla en donde se muestran los datos 
+      mostrar("call personasBusqueda('')");
+ 
+      btnModificar.setEnabled(false);
+      btnEliminar.setEnabled(false);
+      btnGuardar.setEnabled(true);
+  
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+          conexionBD eliminarClientes = new conexionBD();
+      //inserta un registro en la base de datos  
+      
+     int respuesta= JOptionPane.showConfirmDialog(null, "¿esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+     
+     if(respuesta==0)
+     {
+        eliminarClientes.ejecutarSQL("call personasEliminar('"+txtIdentificacion.getText()+"');");
+     // call cuidadesInsertar('dibulla');
+      
+      //actualiza la tabla en donde se muestran los datos 
+      mostrar("call personasBusqueda('')");
+      txtNombre.setText("");
+         btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+        limpiarCajas();
+     }
+      
+     
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+          mostrar("call personasBusqueda('"+txtBusqueda.getText().toString()+"');");
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tableListarClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListarClientesMouseClicked
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        // toma la  fila se la seleccion 
+        //int seleccion =table.rowAtPoint(evt.getPoint());
+        int seleccion=tableListarClientes.getSelectedRow();
+        
+        //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
+         String tipoDoc;
+         tipoDoc=(String.valueOf(tableListarClientes.getValueAt(seleccion, 1)));
+         
+         tipoDoc.substring(0, 1);
+         JOptionPane.showMessageDialog(null, tipoDoc);
+         if (tipoDoc=="Cedula de ciudadania")
+             cmbTipoDocumento1.setSelectedIndex(0);
+     
+        
+                  
+              
+                 
+         txtIdentificacion.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 0)));
+         txtNombre.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 2)));
+         txtTelenofo.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 3)));
+         txtDireccion.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 4)));
+         cmbSexo.addItem(String.valueOf(tableListarClientes.getValueAt(seleccion, 6)));
+         txtEmail.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 5)));
+         txtFechaNa.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 7)));
+         
+     
+      
+        //habilitar y deshabilitar botones
+        btnGuardar.setEnabled(false);
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+         
+    }//GEN-LAST:event_tableListarClientesMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -427,7 +547,7 @@ public class clientesForm extends javax.swing.JDialog {
         DefaultTableModel modelo = new  DefaultTableModel();
         ResultSet rs =conexionBD.getTabla(consulta);
         modelo.setColumnIdentifiers(new Object[]{
-            "Id","nombre"    });
+            "Id"," TIPO IDEN", "NOMBRE","TELEFONO","DIRECCION","EMAIL","SEXO","FECHA NACIMIENTO"});
         
         try
         {
@@ -435,15 +555,14 @@ public class clientesForm extends javax.swing.JDialog {
             {
                 modelo.addRow(new Object[]{
                         rs.getString("PERS_IDENTIFICACION"),
-                        rs.getString("PERS_NOMBRE")
-                     // rs.getString("PERS_NOMBRE ")
-                       // rs.getString("PERS_TELEFONO "),
-                       // rs.getString("PERS_DIRECCION "),
-                       // rs.getString("PERS_EMAIL "),
-                       // rs.getString("PERS_SEXO "),
-                       // rs.getString("PERS_FECHANA ") 
-
-                
+                        rs.getString("PERS_TIPO_IDEN"),
+                        rs.getString("PERS_NOMBRE"),
+                        rs.getString("PERS_TELEFONO"),
+                        rs.getString("PERS_DIRECCION"),
+                        rs.getString("PERS_EMAIL"),
+                        rs.getString("PERS_SEXO"),
+                        rs.getString("PERS_FECHANA")
+                      
                 });
             }
             tableListarClientes.setModel(modelo);
@@ -458,7 +577,17 @@ public class clientesForm extends javax.swing.JDialog {
    {
          
       //limpiar los campos 
+     
       txtIdentificacion.setText("");
+      txtNombre.setText("");
+      txtTelenofo.setText("");
+      txtDireccion.setText("");
+      txtEmail.setText("");
+      txtFechaNa.setText("aaaa/mm/dd");
+             
+     
+      
+   
        
    }
 }

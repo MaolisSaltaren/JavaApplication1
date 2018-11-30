@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import misClases.Personas;
 import misClases.conexionBD;
 import formularios.ciudadesForm;
+import formularios.clientesForm;
+import javax.crypto.spec.IvParameterSpec;
     
 
 public class principalForm extends javax.swing.JFrame {
@@ -90,9 +92,11 @@ public String Valortraido;
     private void btnIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "hola");  JOptionPane.showMessageDialog(null, "juan");
-        ciudadesForm llamar = new ciudadesForm();
+        clientesForm    llamar = new clientesForm(this, rootPaneCheckingEnabled);
         llamar.setVisible(true);
         
+        
+      
     }//GEN-LAST:event_btnIrActionPerformed
 
     /**

@@ -72,6 +72,7 @@ public class conexionBD {
        return datos;
    }
    
+   // metodo que gaura los  datos en la base de datos 
      public  int ejecutarSQL(String insert)
     {
        
@@ -80,7 +81,7 @@ public class conexionBD {
      
         // ejemplo de vectore en java
 
-            JOptionPane.showMessageDialog(null, ""+insert);
+          //  JOptionPane.showMessageDialog(null, ""+insert);
      
       try
         {
