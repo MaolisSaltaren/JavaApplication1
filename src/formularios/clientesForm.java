@@ -29,7 +29,7 @@ public class clientesForm extends javax.swing.JDialog {
         // deshabilitar botones por seguridad
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
-        
+     
     }
 
     /**
@@ -341,6 +341,7 @@ public class clientesForm extends javax.swing.JDialog {
       //Date fechana= Date.valueOf(txtFechaNa.getText());
       try   
       {
+        
       insertarCiudades.ejecutarSQL("call personasInsertar("
               +"'"+txtIdentificacion.getText()+"',"
               +"'"+cmbTipoDocumento1.getSelectedItem().toString()+"',"
@@ -352,10 +353,14 @@ public class clientesForm extends javax.swing.JDialog {
               +"'"+ Date.valueOf(txtFechaNa.getText())
                
               +"');");
+          
+        
       }
       catch (Exception e )
       {
-          JOptionPane.showMessageDialog(null," No se ha pidido realizar la operacion por favor, verifique que el formato de la fecha sea correcto y que  todos los campos esten correctamente diligenciados");
+          JOptionPane.showMessageDialog(null," No se ha pidido realizar la operacion por favor, verifique que el formato "
+                  + "de la fecha sea correcto y que  todos los campos esten correctamente diligenciados Eror= "+e.toString()
+          );
       }
     
       

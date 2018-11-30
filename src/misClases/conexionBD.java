@@ -10,7 +10,11 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import static java.lang.Class.forName;
 import java.awt.HeadlessException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;// para leer el archivo de configuracion del aplicativo 
 
 import javax.swing.JOptionPane;
 
@@ -25,18 +29,55 @@ public class conexionBD {
     //metodo para conecion con la bd
    
    //variables publicas
-   public static final String driver="com.mysql.jdbc.Driver";
-   public static final String db="bd_flores";
-   public static final String hostname="localhost";
-   public static final String port="3306";
-   public static final String url="jdbc:mysql://" + hostname + ":"+ port +"/"+db +"?useSSL=false";
-   public static final String usuario="root";
-   public static final String pass="123456";
+   public static  String driver;
+   public static  String db;
+   public static  String hostname;
+   public static  String port;
+   public static  String url;
+   public static  String usuario;
+   public static  String pass;
    
-
+   
+  //metodo que lee el archivo de configuracion de la aplicacion 
+   public static void obtenerCadena ()
+   {
+       //instancia del archvo de propiedades 
+       Properties prop= new Properties();
+       
+       //declara objetos para lectura de archivo
+       InputStream isArchivo;
+       try
+       {
+           //abre el archivo
+           isArchivo= new FileInputStream("src/config/appConfig.properties");
+           //lee el archivo
+           prop.load(isArchivo);
+           
+           //asignando los valores respectivos las variables de  acceso a datos
+            driver=prop.getProperty("driver");
+            db=prop.getProperty("db");
+            hostname=prop.getProperty("hostname");
+            port=prop.getProperty("port");
+            usuario=prop.getProperty("usuario");
+            pass=prop.getProperty("pass");
+            url= "jdbc:mysql://" + hostname + ":"+ port +"/"+db +"?useSSL=false";      
+            
+            
+       }
+       catch(IOException e ){
+           JOptionPane.showMessageDialog(null, "Error= "+e.toString());
+           
+       }
+       
+       //JOptionPane.showMessageDialog(null, " base de datos = " +prop.getProperty(""));
+   }
+   
  
    public  static Connection getConexion()
-      {      
+      {  
+          
+     obtenerCadena();
+          
      Connection conn= null;
      try  
        {
@@ -91,7 +132,7 @@ public class conexionBD {
    
             if(resultado>0)
             {
-                    JOptionPane.showMessageDialog(null, "Registro guardado con exito ");
+                    //JOptionPane.showMessageDialog(null, "Registro guardado con exito ");
             }
             else
             {
