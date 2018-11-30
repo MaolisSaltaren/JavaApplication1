@@ -217,7 +217,7 @@ public class clientesForm extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
-        jLabel6.setText("Busqueda de productos ");
+        jLabel6.setText("Busqueda de clientes por nombre");
 
         tableListarClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -397,6 +397,9 @@ public class clientesForm extends javax.swing.JDialog {
       btnModificar.setEnabled(false);
       btnEliminar.setEnabled(false);
       btnGuardar.setEnabled(true);
+      
+      //llama a la funcion que resetea las vistas en el formulario 
+      limpiarCajas();
   
         
     }//GEN-LAST:event_btnModificarActionPerformed
