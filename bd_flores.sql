@@ -27,8 +27,9 @@ DROP TABLE IF EXISTS `tbl_ciudades`;
 CREATE TABLE `tbl_ciudades` (
   `CIUD_ID` int(11) NOT NULL AUTO_INCREMENT,
   `CIUD_NOMBRE` varchar(45) NOT NULL,
-  PRIMARY KEY (`CIUD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`CIUD_ID`),
+  UNIQUE KEY `CIUD_NOMBRE_UNIQUE` (`CIUD_NOMBRE`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +38,7 @@ CREATE TABLE `tbl_ciudades` (
 
 LOCK TABLES `tbl_ciudades` WRITE;
 /*!40000 ALTER TABLE `tbl_ciudades` DISABLE KEYS */;
-INSERT INTO `tbl_ciudades` VALUES (1,'riohacha'),(2,'bogotá'),(3,'bogotá'),(4,'bogota'),(5,'medellin'),(6,'bucaramanga');
+INSERT INTO `tbl_ciudades` VALUES (14,'bogotá'),(18,'cartagena'),(21,'cucuta'),(16,'dibulla manaure'),(23,'juan'),(10,'Riohacha');
 /*!40000 ALTER TABLE `tbl_ciudades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,13 +52,13 @@ DROP TABLE IF EXISTS `tbl_detalle_pedido`;
 CREATE TABLE `tbl_detalle_pedido` (
   `DEPE_ID` int(11) NOT NULL AUTO_INCREMENT,
   `DEPE_CANT` int(11) NOT NULL,
-  `FLOR_ID` int(11) DEFAULT NULL,
   `PEDI_ID` bigint(15) DEFAULT NULL,
+  `PROD_ID` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`DEPE_ID`),
-  KEY `FK_TBL_FLORES_TBL_DETALLEPEDI_idx` (`FLOR_ID`),
-  KEY `FK_TBLPEDIDOS_TBL_DETALLE_PEDIDO_idx` (`PEDI_ID`),
-  CONSTRAINT `FK_TBLPEDIDOS_TBL_DETALLE_PEDIDO` FOREIGN KEY (`PEDI_ID`) REFERENCES `tbl_pedidos` (`PEDI_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_TBL_FLORES_TBL_DETALLEPEDI` FOREIGN KEY (`FLOR_ID`) REFERENCES `tbl_flores` (`FLOR_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_DETALLEPEDIDO_TBLPEDIDO_idx` (`PEDI_ID`),
+  KEY `FK_DETALLEPEDIDO_TBLPRODUCTOS_idx` (`PROD_ID`),
+  CONSTRAINT `FK_DETALLEPEDIDO_TBLPEDIDO` FOREIGN KEY (`PEDI_ID`) REFERENCES `tbl_pedidos` (`PEDI_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_DETALLEPEDIDO_TBLPRODUCTOS` FOREIGN KEY (`PROD_ID`) REFERENCES `tbl_productos` (`PROD_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,83 +92,6 @@ CREATE TABLE `tbl_estado_pedi` (
 LOCK TABLES `tbl_estado_pedi` WRITE;
 /*!40000 ALTER TABLE `tbl_estado_pedi` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tbl_estado_pedi` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_flores`
---
-
-DROP TABLE IF EXISTS `tbl_flores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_flores` (
-  `FLOR_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `FLOR_DESCRIPCION` varchar(45) NOT NULL,
-  PRIMARY KEY (`FLOR_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_flores`
---
-
-LOCK TABLES `tbl_flores` WRITE;
-/*!40000 ALTER TABLE `tbl_flores` DISABLE KEYS */;
-INSERT INTO `tbl_flores` VALUES (1,'margarita');
-/*!40000 ALTER TABLE `tbl_flores` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_histo_pedidos`
---
-
-DROP TABLE IF EXISTS `tbl_histo_pedidos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_histo_pedidos` (
-  `HIPO_ID` int(11) NOT NULL,
-  `ESTADO` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`HIPO_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_histo_pedidos`
---
-
-LOCK TABLES `tbl_histo_pedidos` WRITE;
-/*!40000 ALTER TABLE `tbl_histo_pedidos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_histo_pedidos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_inventarios`
---
-
-DROP TABLE IF EXISTS `tbl_inventarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_inventarios` (
-  `INVE_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `INVE_PRECIO` double NOT NULL,
-  `INVE_STOK` double NOT NULL,
-  `INVE_STOK_MIN` double NOT NULL,
-  `INVE_ESTADO` char(20) NOT NULL,
-  `FLOR_ID` int(11) NOT NULL,
-  PRIMARY KEY (`INVE_ID`),
-  KEY `FK_FLORID_TBL_FLORES_idx` (`FLOR_ID`),
-  CONSTRAINT `FK_FLORID_TBL_FLORES` FOREIGN KEY (`FLOR_ID`) REFERENCES `tbl_flores` (`FLOR_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_inventarios`
---
-
-LOCK TABLES `tbl_inventarios` WRITE;
-/*!40000 ALTER TABLE `tbl_inventarios` DISABLE KEYS */;
-INSERT INTO `tbl_inventarios` VALUES (1,150000,10,5,'activo',1),(2,150000,10,5,'activo',1),(3,150000,10,5,'activo',1),(4,750000,10,1,'activo',1),(5,89000000,10,1,'activo',1),(6,89000000,10,1,'activo',1),(7,300000,50,20,'activo',1),(8,300000,50,20,'activo',1),(9,200000,20,20,'desactivo',1);
-/*!40000 ALTER TABLE `tbl_inventarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -214,7 +138,7 @@ DROP TABLE IF EXISTS `tbl_personas`;
 CREATE TABLE `tbl_personas` (
   `PERS_IDENTIFICACION` varchar(45) NOT NULL,
   `PERS_TIPO_IDEN` varchar(45) NOT NULL,
-  `PERS_TIPOPERS` varchar(45) NOT NULL,
+  `PERS_NOMBRE` varchar(45) DEFAULT NULL,
   `PERS_TELEFONO` varchar(45) NOT NULL,
   `PERS_DIRECCION` varchar(45) NOT NULL,
   `PERS_EMAIL` varchar(45) NOT NULL,
@@ -230,7 +154,34 @@ CREATE TABLE `tbl_personas` (
 
 LOCK TABLES `tbl_personas` WRITE;
 /*!40000 ALTER TABLE `tbl_personas` DISABLE KEYS */;
+INSERT INTO `tbl_personas` VALUES ('1118837113','Seleccione','juan david ','3043377736','calle 49','juandrdondo@gmail.com','Seleccione','2008-05-02'),('5654','Cedula de ciudadania','654','6546','5465','6+545','Masculino','2008-09-02');
 /*!40000 ALTER TABLE `tbl_personas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_productos`
+--
+
+DROP TABLE IF EXISTS `tbl_productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_productos` (
+  `PROD_ID` varchar(45) NOT NULL,
+  `PROD_NOMBRE` varchar(45) NOT NULL,
+  `PROD_STOK` double DEFAULT NULL,
+  `PROD_PRECIO` double DEFAULT NULL,
+  PRIMARY KEY (`PROD_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_productos`
+--
+
+LOCK TABLES `tbl_productos` WRITE;
+/*!40000 ALTER TABLE `tbl_productos` DISABLE KEYS */;
+INSERT INTO `tbl_productos` VALUES ('1234','coco',50,10000),('124','margarita',20,2000),('14156','maiz',10000,10000);
+/*!40000 ALTER TABLE `tbl_productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -295,7 +246,7 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'bd_flores'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `insertarCiudades` */;
+/*!50003 DROP PROCEDURE IF EXISTS `ciudadesBusqueda` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -305,7 +256,65 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarCiudades`(nombreciudad varchar(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ciudadesBusqueda`(nombreciudad varchar(45))
+BEGIN
+
+ select * from tbl_ciudades where ciud_nombre like concat('%',nombreciudad,'%');
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ciudadesEliminar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ciudadesEliminar`(nombreCiudad varchar(45))
+BEGIN
+ delete from tbl_ciudades where ciud_id =nombreCiudad;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ciudadesModificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ciudadesModificar`(nombreCiudad varchar(45),idCiudad int)
+BEGIN
+ update  tbl_ciudades set ciud_nombre =nombreCiudad where ciud_id = idCiudad;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `cuidadesInsertar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cuidadesInsertar`(nombreciudad varchar(45))
 BEGIN
 
 insert into tbl_ciudades (ciud_nombre) values(nombreciudad);
@@ -341,6 +350,303 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `new_procedure` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_procedure`(
+_PERS_IDENTIFICACION varchar(45),
+_PERS_TIPO_IDEN varchar(45),
+_PERS_NOMBRE varchar(45),
+_PERS_TELEFONO varchar(45),
+_PERS_DIRECCION varchar(45),
+_PERS_EMAIL varchar(45),
+_PERS_SEXO varchar(45),
+_PERS_FECHANA date 
+
+)
+BEGIN
+
+insert into tbl_personas (
+
+PERS_IDENTIFICACION ,
+PERS_TIPO_IDEN ,
+PERS_NOMBRE ,
+PERS_TELEFONO ,
+PERS_DIRECCION ,
+PERS_EMAIL ,
+PERS_SEXO ,
+PERS_FECHANA  
+) 
+
+
+values (
+_PERS_IDENTIFICACION ,
+_PERS_TIPO_IDEN ,
+_PERS_NOMBRE ,
+_PERS_TELEFONO ,
+_PERS_DIRECCION ,
+_PERS_EMAIL ,
+_PERS_SEXO ,
+_PERS_FECHANA  
+
+);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `personasBusqueda` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `personasBusqueda`(valorBuscado varchar(45))
+BEGIN
+select * from tbl_personas where pers_nombre like concat('%',valorBuscado,'%');
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `personasEliminar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `personasEliminar`(idPersona varchar(45))
+BEGIN
+ delete from tbl_personas where pers_identificacion= idPersona;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `personasInsertar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `personasInsertar`(
+_PERS_IDENTIFICACION varchar(45),
+_PERS_TIPO_IDEN varchar(45),
+_PERS_NOMBRE varchar(45),
+_PERS_TELEFONO varchar(45),
+_PERS_DIRECCION varchar(45),
+_PERS_EMAIL varchar(45),
+_PERS_SEXO varchar(45),
+_PERS_FECHANA date 
+
+)
+BEGIN
+
+insert into tbl_personas (
+
+PERS_IDENTIFICACION ,
+PERS_TIPO_IDEN ,
+PERS_NOMBRE ,
+PERS_TELEFONO ,
+PERS_DIRECCION ,
+PERS_EMAIL ,
+PERS_SEXO ,
+PERS_FECHANA  
+) 
+
+
+values (
+_PERS_IDENTIFICACION ,
+_PERS_TIPO_IDEN ,
+_PERS_NOMBRE ,
+_PERS_TELEFONO ,
+_PERS_DIRECCION ,
+_PERS_EMAIL ,
+_PERS_SEXO ,
+_PERS_FECHANA  
+
+);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `personasModificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `personasModificar`(
+_PERS_IDENTIFICACION varchar(45),
+_PERS_TIPO_IDEN varchar(45),
+_PERS_NOMBRE varchar(45),
+_PERS_TELEFONO varchar(45),
+_PERS_DIRECCION varchar(45),
+_PERS_EMAIL varchar(45),
+_PERS_SEXO varchar(45),
+_PERS_FECHANA date 
+)
+BEGIN
+
+update tbl_personas set  
+PERS_TIPO_IDEN=_PERS_TIPO_IDEN ,
+PERS_NOMBRE =_PERS_NOMBRE,
+PERS_TELEFONO =_PERS_TELEFONO,
+PERS_DIRECCION=_PERS_DIRECCION ,
+PERS_EMAIL=_PERS_EMAIL ,
+PERS_SEXO =_PERS_SEXO,
+PERS_FECHANA  =_PERS_FECHANA
+WHERE PERS_IDENTIFICACION=_PERS_IDENTIFICACION;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `productosBusqueda` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `productosBusqueda`(
+nombre varchar(45))
+BEGIN
+ select * from tbl_productos  where prod_nombre like concat('%',nombre,'%');
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `productosEliminar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `productosEliminar`(
+producto varchar(45))
+BEGIN
+ delete from tbl_productos where prod_id =producto;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `productosInsertar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `productosInsertar`(
+PROD_ID varchar(45),
+PROD_NOMBRE VARCHAR(45),
+PROD_STOK DOUBLE,
+PROD_PRECIO DOUBLE)
+BEGIN
+
+insert into tbl_productos(
+PROD_ID,
+PROD_NOMBRE,
+PROD_STOK,
+PROD_PRECIO
+
+) values (
+PROD_ID,
+PROD_NOMBRE,
+PROD_STOK,
+PROD_PRECIO
+
+);
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `productosModificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `productosModificar`(
+ID varchar(45),
+PROD_NOMBRE VARCHAR(45),
+PROD_STOK DOUBLE,
+PROD_PRECIO DOUBLE)
+BEGIN
+
+update tbl_productos set 
+
+PROD_NOMBRE=PROD_NOMBRE,
+PROD_STOK=PROD_STOK,
+PROD_PRECIO=PROD_PRECIO where  PROD_ID  =ID ;
+
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -351,4 +657,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-27 10:00:20
+-- Dump completed on 2018-11-30 18:42:46
