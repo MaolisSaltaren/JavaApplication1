@@ -1,0 +1,8 @@
+#guardado
+#Fri Nov 30 15:09:44 COT 2018
+port=3306
+hostname=localhost
+db=bd_flores
+pass=123456789
+usuario=juan
+driver=com.mysql.jdbc.Driver
