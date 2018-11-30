@@ -164,7 +164,7 @@ public String Valortraido;
     private void btnCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadesActionPerformed
         // TODO add your handling code here:
         //ciudadesForm ciud = new  ciudadesForm(this,true);
-        ciudadesForm2 llamar = new ciudadesForm2(this,true);
+        ciudadesForm llamar = new ciudadesForm(this,true);
         llamar.setVisible(true);
        
         
