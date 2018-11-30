@@ -8,16 +8,21 @@ import misClases.conexionBD;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-public class ciudadesForm extends javax.swing.JDialog {
+
+/**
+ *
+ * @author JUAN_PC
+ */
+
+public class ciudadesForm2 extends javax.swing.JDialog {
+ public  String idciudad;
     /**
-     * Creates new form ciudadesForm
+     * Creates new form ciudadesForm2
      */
-    public  String idciudad;
-    public ciudadesForm(java.awt.Frame parent, boolean modal) {
+    public ciudadesForm2(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
         initComponents();
-        mostrar("call ciudadesBusqueda('');");
+              mostrar("call ciudadesBusqueda('');");
         // deshabilitar botones por seguridad
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
@@ -48,7 +53,7 @@ public class ciudadesForm extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 204));
@@ -143,9 +148,6 @@ public class ciudadesForm extends javax.swing.JDialog {
             }
         });
         jScrollPane2.setViewportView(table);
-        if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setHeaderValue("Title 1");
-        }
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,85 +229,80 @@ public class ciudadesForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-     conexionBD eliminarCiudades = new conexionBD();
-      //inserta un registro en la base de datos  
-      
-     int respuesta= JOptionPane.showConfirmDialog(null, "¿esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-     
-     if(respuesta==0)
-     {
-        eliminarCiudades.ejecutarSQL("call ciudadesEliminar('"+idciudad+"');");
-     // call cuidadesInsertar('dibulla');
-      
-      //actualiza la tabla en donde se muestran los datos 
-      mostrar("call ciudadesBusqueda('')");
-      txtNombreCiudad.setText("");
-         btnModificar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnGuardar.setEnabled(true);
-     }
-      
-     
-       
-       
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        
-        mostrar("call ciudadesBusqueda('"+txtBuscarCiudades.getText().toString()+"');");
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-      conexionBD insertarCiudades = new conexionBD();
-      //inserta un registro en la base de datos  
-      insertarCiudades.ejecutarSQL("call cuidadesInsertar('"+txtNombreCiudad.getText().toString()+"');");
-     // call cuidadesInsertar('dibulla');
-      
-      //actualiza la tabla en donde se muestran los datos 
-      mostrar("call ciudadesBusqueda('')");
-      txtNombreCiudad.setText("");     
+        conexionBD insertarCiudades = new conexionBD();
+        //inserta un registro en la base de datos
+        insertarCiudades.ejecutarSQL("call cuidadesInsertar('"+txtNombreCiudad.getText().toString()+"');");
+        // call cuidadesInsertar('dibulla');
+
+        //actualiza la tabla en donde se muestran los datos
+        mostrar("call ciudadesBusqueda('')");
+        txtNombreCiudad.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-  
-    }//GEN-LAST:event_tableMouseReleased
+        conexionBD modificarCiudades = new conexionBD();
+        modificarCiudades.ejecutarSQL("call ciudadesModificar('"+txtNombreCiudad.getText().toString()+"','"+idciudad+"');");
+        // call cuidadesInsertar('dibulla');
+
+        //actualiza la tabla en donde se muestran los datos
+        mostrar("call ciudadesBusqueda('')");
+        txtNombreCiudad.setText("");
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        conexionBD eliminarCiudades = new conexionBD();
+        //inserta un registro en la base de datos
+
+        int respuesta= JOptionPane.showConfirmDialog(null, "¿esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+        if(respuesta==0)
+        {
+            eliminarCiudades.ejecutarSQL("call ciudadesEliminar('"+idciudad+"');");
+            // call cuidadesInsertar('dibulla');
+
+            //actualiza la tabla en donde se muestran los datos
+            mostrar("call ciudadesBusqueda('')");
+            txtNombreCiudad.setText("");
+            btnModificar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnGuardar.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         // TODO add your handling code here:
-        // toma la  fila se la seleccion 
+        // toma la  fila se la seleccion
         //int seleccion =table.rowAtPoint(evt.getPoint());
         int seleccion=table.getSelectedRow();
         txtNombreCiudad.setText(String.valueOf(table.getValueAt(seleccion, 1)));
-       
+
         idciudad= String.valueOf(table.getValueAt(seleccion, 0));
-        
+
         //habilitar y deshabilitar botones
         btnGuardar.setEnabled(false);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
-         
-             
-        
+
     }//GEN-LAST:event_tableMouseClicked
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
         // TODO add your handling code here:
-         conexionBD modificarCiudades = new conexionBD();
-          modificarCiudades.ejecutarSQL("call ciudadesModificar('"+txtNombreCiudad.getText().toString()+"','"+idciudad+"');");
-     // call cuidadesInsertar('dibulla');
-      
-      //actualiza la tabla en donde se muestran los datos 
-      mostrar("call ciudadesBusqueda('')");
-      txtNombreCiudad.setText("");
-      btnModificar.setEnabled(false);
-      btnEliminar.setEnabled(false);
-      btnGuardar.setEnabled(true);
-  
-    }//GEN-LAST:event_btnModificarActionPerformed
+
+    }//GEN-LAST:event_tableMouseReleased
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+
+        mostrar("call ciudadesBusqueda('"+txtBuscarCiudades.getText().toString()+"');");
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,20 +321,20 @@ public class ciudadesForm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ciudadesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ciudadesForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ciudadesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ciudadesForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ciudadesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ciudadesForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ciudadesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ciudadesForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ciudadesForm dialog = new ciudadesForm(new javax.swing.JFrame(), true);
+                ciudadesForm2 dialog = new ciudadesForm2(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -348,26 +345,7 @@ public class ciudadesForm extends javax.swing.JDialog {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable table;
-    private javax.swing.JTextField txtBuscarCiudades;
-    private javax.swing.JTextField txtNombreCiudad;
-    // End of variables declaration//GEN-END:variables
-
-    private void mostrar( String consulta) {
+     private void mostrar( String consulta) {
         
         DefaultTableModel modelo = new  DefaultTableModel();
         ResultSet rs =conexionBD.getTabla(consulta);
@@ -388,4 +366,22 @@ public class ciudadesForm extends javax.swing.JDialog {
         
         
         }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable table;
+    private javax.swing.JTextField txtBuscarCiudades;
+    private javax.swing.JTextField txtNombreCiudad;
+    // End of variables declaration//GEN-END:variables
 }

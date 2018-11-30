@@ -8,7 +8,7 @@ package formularios;
 
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import misClases.conexionBD;
@@ -446,14 +446,7 @@ public class clientesForm extends javax.swing.JDialog {
         int seleccion=tableListarClientes.getSelectedRow();
         
         //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
-         String tipoDoc;
-         tipoDoc=(String.valueOf(tableListarClientes.getValueAt(seleccion, 1)));
-         
-         tipoDoc.substring(0, 1);
-         JOptionPane.showMessageDialog(null, tipoDoc);
-         if (tipoDoc=="Cedula de ciudadania")
-             cmbTipoDocumento1.setSelectedIndex(0);
-     
+    
         
                   
               
