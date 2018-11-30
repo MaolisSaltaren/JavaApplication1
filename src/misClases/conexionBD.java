@@ -132,7 +132,7 @@ public class conexionBD {
    
             if(resultado>0)
             {
-                    //JOptionPane.showMessageDialog(null, "Registro guardado con exito ");
+                    JOptionPane.showMessageDialog(null, "Operacion exitosa :) ");
             }
             else
             {
