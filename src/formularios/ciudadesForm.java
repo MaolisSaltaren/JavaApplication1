@@ -380,12 +380,12 @@ public class ciudadesForm extends javax.swing.JDialog {
             table.setModel(modelo);
             
         }
-        catch (Exception e){JOptionPane.showMessageDialog(null,"Error"+e.toString());}
-
-        
-        
-        
+        catch (Exception e){JOptionPane.showMessageDialog(null,"Error"+e.toString());} 
         }
+     
+   
+     
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
