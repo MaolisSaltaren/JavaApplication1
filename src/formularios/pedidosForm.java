@@ -33,6 +33,7 @@ public class pedidosForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -376,11 +377,15 @@ public class pedidosForm extends javax.swing.JDialog {
                 "null"
             }
         ));
-        tableListadoProductos.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tableListadoProductos);
         tableListadoProductos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton4.setText("Finalizar Venta");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -628,29 +633,32 @@ public class pedidosForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAddProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductoActionPerformed
-        // TODO add your handling code here:
-          DefaultTableModel modeloProductos = (DefaultTableModel)tableListadoProductos.getModel();
-      
+       
+         DefaultTableModel modeloProductos = (DefaultTableModel)tableListadoProductos.getModel();
+       
            modeloProductos.setColumnIdentifiers(new Object[]{
             "Id","NOMBRE", "cantidad","STOCK","VR. UNITARIO","VR. TOTAL"});
-        
-    
+      
+       
             
                 modeloProductos.addRow(new Object[]{txtIdproducto.getText(),
-                                                    txtnombreProducto.getText(),
-                                                    txtCantidad.getText(),
-                                                    txtStok.getText(),
-                                                    txtVrUnitario.getText(),
-                                                    txtVrUnitario.getText(),
-                                                    txtVrTotal.getText()
-                                                   
-                                            });
-           
+                                                                 txtnombreProducto.getText(),
+                                                                 txtCantidad.getText(),
+                                                                 txtStok.getText(),
+                                                                 txtVrUnitario.getText(),
+                                                                 txtVrUnitario.getText(),
+                                                                 txtVrTotal.getText()
+
+                                                         });
+          
+       
                
-            
-           // tableListadoProductos.setModel(modeloProductos);
-            
+     
     }//GEN-LAST:event_btnAddProductoActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -749,15 +757,10 @@ public class pedidosForm extends javax.swing.JDialog {
             {
                 modelo.addRow(new Object[]{
                         rs.getString("PERS_IDENTIFICACION"),
-                       // rs.getString("PERS_TIPO_IDEN"),
+          
                         rs.getString("PERS_NOMBRE"),
                         rs.getString("PERS_TELEFONO")
-                       // rs.getString("PERS_DIRECCION"),
-                       // rs.getString("PERS_EMAIL"),
-                      //  rs.getString("PERS_SEXO"),
-                       // rs.getString("PERS_FECHANA"))
-                        
-                      
+                
                 });
             }
             tableListadoClientes.setModel(modelo);
@@ -790,6 +793,9 @@ public class pedidosForm extends javax.swing.JDialog {
         }
         catch (Exception e){JOptionPane.showMessageDialog(null,"Error"+e.toString());} 
         }
+          
+       
+      
           
            
         
@@ -830,6 +836,7 @@ public class pedidosForm extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
