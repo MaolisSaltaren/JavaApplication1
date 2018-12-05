@@ -1,10 +1,14 @@
-
+/*
+formulario principal del aplicativo contiene el enlace a las diferentes formularios para el acceso a datos 
+*/
 package formularios;
+
+//importacion de librerias  requeridas para la conexion con base de datos y  la clase maestra  de acceso a datos
 
 import java.sql.Connection;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import misClases.Personas;
+
 import misClases.conexionBD;
 import formularios.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -15,6 +19,7 @@ public String Valortraido;
   
     public principalForm() {
         initComponents();
+        
         setExtendedState(MAXIMIZED_HORIZ);// maximiza la pantalla al iniciar
     }
     
@@ -149,7 +154,7 @@ public String Valortraido;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        // TODO add your handling code here:
+     //llamando al formulario de productos  como una ventana modal
         productosForm prod= new productosForm(this, true);
         prod.setVisible(true);
   
@@ -163,7 +168,7 @@ public String Valortraido;
 
     private void btnCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadesActionPerformed
         // TODO add your handling code here:
-        //ciudadesForm ciud = new  ciudadesForm(this,true);
+        //llamando al formulario de cidades
         ciudadesForm llamar = new ciudadesForm(this,true);
         llamar.setVisible(true);
        
@@ -173,6 +178,8 @@ public String Valortraido;
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
         // TODO add your handling code here:
+        // llamando al formulario de pedidos
+        
          pedidosForm pedi = new pedidosForm(this, true);
         pedi.setVisible(true);
         
@@ -180,7 +187,7 @@ public String Valortraido;
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-            
+           // llamando al formulario de clientes
         clientesForm    llamar = new clientesForm(this, rootPaneCheckingEnabled);
         llamar.setVisible(true);
         

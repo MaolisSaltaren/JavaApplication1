@@ -25,6 +25,8 @@ public class clientesForm extends javax.swing.JDialog {
     public clientesForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        //  llama al la funcion mostrar para mostrar   un listado de clientes en registraddos en la base de datos 
         mostrar("call personasBusqueda('');");
         // deshabilitar botones por seguridad
         btnModificar.setEnabled(false);
@@ -389,10 +391,11 @@ public class clientesForm extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
             // TODO add your handling code here:
-         conexionBD modificarClientes = new conexionBD();
+         conexionBD modificarClientes = new conexionBD();// crea un objeto de la clase conexionBD
          
         try   
       {
+          // llama al  procedimiento almacenado para la modificacion de los cmpos especificados 
       modificarClientes.ejecutarSQL("call personasModificar("
               +"'"+txtIdentificacion.getText()+"',"
               +"'"+cmbTipoDocumento1.getSelectedItem().toString()+"',"
@@ -426,12 +429,12 @@ public class clientesForm extends javax.swing.JDialog {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
           conexionBD eliminarClientes = new conexionBD();
-      //inserta un registro en la base de datos  
-      
+      // muestra un mensaje en pantalla  previniendo al usuario de que se van a eliminar el registro espeficidado 
      int respuesta= JOptionPane.showConfirmDialog(null, "¿esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
      
      if(respuesta==0)
      {
+         // elimina el registro espeficiado 
         eliminarClientes.ejecutarSQL("call personasEliminar('"+txtIdentificacion.getText()+"');");
      // call cuidadesInsertar('dibulla');
       
@@ -461,10 +464,7 @@ public class clientesForm extends javax.swing.JDialog {
         
         //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
     
-        
-                  
-              
-                 
+                
          txtIdentificacion.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 0)));
          txtNombre.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 2)));
          txtTelenofo.setText(String.valueOf(tableListarClientes.getValueAt(seleccion, 3)));
@@ -568,7 +568,8 @@ public class clientesForm extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
    private void mostrar( String consulta) {
-        
+       // metodo que muestra  los tatos en un jtable  con la informacion de todos los clientes registrados  
+       
         DefaultTableModel modelo = new  DefaultTableModel();
         ResultSet rs =conexionBD.getTabla(consulta);
         modelo.setColumnIdentifiers(new Object[]{

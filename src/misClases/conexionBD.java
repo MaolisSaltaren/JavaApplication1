@@ -1,6 +1,10 @@
 
 package misClases;
 
+// la programacion  utilizada en este proyecto es   programacion orientado a objetos
+// en esta clase se encuentran los metodos principales que permite a java conectarse al servidor mysq y tener accco a
+// los tados 
+
 import static java.lang.Class.forName;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -41,19 +45,22 @@ public class conexionBD {
   //metodo que lee el archivo de configuracion de la aplicacion 
    public static void obtenerCadena ()
    {
-       //instancia del archvo de propiedades 
+       //1.instancia del archvo de propiedades 
        Properties prop= new Properties();
        
-       //declara objetos para lectura de archivo
+       //2.declara objetos para lectura de archivo
        InputStream isArchivo;
        try
        {
-           //abre el archivo
+           //3.abre el archivo
            isArchivo= new FileInputStream("src/config/appConfig.properties");
-           //lee el archivo
+           //4.lee el archivo
            prop.load(isArchivo);
            
-           //asignando los valores respectivos las variables de  acceso a datos
+          //5.captura del archivo  llamado appConfig.properties toda la coniguracion de conexion con la base de datos
+          // de esta manera se facilita el cambio de usuario y contraseña de forma muy rapida y segura 
+          // solo hay que abrir el archivo en cuestion y realizar los respectivos ajustes
+          
             driver=prop.getProperty("driver");
             db=prop.getProperty("db");
             hostname=prop.getProperty("hostname");
@@ -72,11 +79,12 @@ public class conexionBD {
        //JOptionPane.showMessageDialog(null, " base de datos = " +prop.getProperty(""));
    }
    
- 
+ // esta funcion obtiene la conexion  hacia la base de datos mysql
    public  static Connection getConexion()
       {  
           
-     obtenerCadena();
+     obtenerCadena();// llama al metodo  que contiene todos los parametros de conexion con la base de datos 
+     
           
      Connection conn= null;
      try  
@@ -93,7 +101,9 @@ public class conexionBD {
        }
        return conn;
    }
-      //metodo que lle los datos de una tabla
+   
+      //metodo que lle los datos de una tabla la cual se le puede mandar una  consulta  sql o un procedimiento almacenado
+   
    public static ResultSet getTabla(String consulta)
    {
        Connection con= getConexion();
@@ -113,10 +123,11 @@ public class conexionBD {
        return datos;
    }
    
-   // metodo que gaura los  datos en la base de datos 
+   // metodo que guarda datod en la base de  datos 
+   // recibe por parametro un  un string el cual contiene el procedimiento almacenado  que se encuentra en la base de datos 
+   
      public  int ejecutarSQL(String insert)
-    {
-       
+    {      
      
        int resultado=0;
      

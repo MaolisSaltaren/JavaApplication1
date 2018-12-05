@@ -241,11 +241,11 @@ public class ciudadesForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+           //crea un objeto de la clase  coexionBD
         conexionBD insertarCiudades = new conexionBD();
-        //inserta un registro en la base de datos
-        insertarCiudades.ejecutarSQL("call cuidadesInsertar('"+txtNombreCiudad.getText().toString()+"');");
-        // call cuidadesInsertar('dibulla');
-
+     // hace uso de la clase conexionBD para insertar  un registro de una ciudad 
+     insertarCiudades.ejecutarSQL("call cuidadesInsertar('"+txtNombreCiudad.getText().toString()+"');");
+       
         //actualiza la tabla en donde se muestran los datos
         mostrar("call ciudadesBusqueda('')");
         txtNombreCiudad.setText("");
@@ -259,6 +259,7 @@ public class ciudadesForm extends javax.swing.JDialog {
 
         //actualiza la tabla en donde se muestran los datos
         mostrar("call ciudadesBusqueda('')");
+        // limpia las cajas de texto y  habilita los diferentes botones en pantalla 
         txtNombreCiudad.setText("");
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
@@ -270,7 +271,7 @@ public class ciudadesForm extends javax.swing.JDialog {
         // TODO add your handling code here:
         conexionBD eliminarCiudades = new conexionBD();
         //inserta un registro en la base de datos
-
+        //
         int respuesta= JOptionPane.showConfirmDialog(null, "¿esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 
         if(respuesta==0)
@@ -288,6 +289,7 @@ public class ciudadesForm extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    // metodo que pasa los datos seleccionados de un jtable  a los recpctivos cajas de texto  para operaciones de edicion o eliminacion 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         // TODO add your handling code here:
         // toma la  fila se la seleccion
@@ -365,6 +367,8 @@ public class ciudadesForm extends javax.swing.JDialog {
             }
         });
     }
+    
+    // metodo que muestra los datos de ciudades en un jtable 
      private void mostrar( String consulta) {
         
         DefaultTableModel modelo = new  DefaultTableModel();

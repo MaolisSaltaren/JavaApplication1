@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/misClases/conexionBD.java</file>
-            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/formularios/ciudadesForm.java</file>
-            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/formularios/clientesForm.java</file>
-            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/formularios/principalForm.java</file>
-            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/misClases/PersonaCrud.java</file>
+            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/formularios/pedidosForm.java</file>
+            <file>file:/D:/UNAD/PROYECTO%20JAVA/JavaApplication1/src/formularios/configuracionForm.java</file>
         </group>
     </open-files>
 </project-private>

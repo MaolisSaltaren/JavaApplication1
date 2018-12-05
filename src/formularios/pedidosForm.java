@@ -5,6 +5,7 @@
  */
 package formularios;
 
+//librerias necesarias para el acceso a datos en servidor mysql 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,11 @@ public class pedidosForm extends javax.swing.JDialog {
      */
     public pedidosForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
+        // carga los pedidos en un jtable al iniciar la aplicacion
         initComponents();
+        
+        // busca el ultimo pedido guardado y genera un consecutuvo
         selectMax("call pedidosMax()");
        
     
@@ -585,8 +590,7 @@ public class pedidosForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrActionPerformed
-        // TODO add your handling code here:
-       
+        // TODO add your handling code here
         searchNombreCliente(" select PERS_NOMBRE from tbl_personas where PERS_IDENTIFICACION = '"+txtIdCliente.getText()+"';");
     }//GEN-LAST:event_btnIrActionPerformed
 
@@ -769,7 +773,9 @@ public class pedidosForm extends javax.swing.JDialog {
         catch (Exception e){JOptionPane.showMessageDialog(null,"Error"+e.toString());} 
         }
         //--------------------------------------------------------------------------------
-          private void mostrarProductos( String consulta) {
+         
+        // metodo que muestra en  el jtable espeficicado el todos los productos 
+        private void mostrarProductos( String consulta) {
         
         DefaultTableModel modelo = new  DefaultTableModel();
         ResultSet rs =conexionBD.getTabla(consulta);
