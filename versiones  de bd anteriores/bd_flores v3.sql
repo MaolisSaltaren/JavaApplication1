@@ -29,7 +29,7 @@ CREATE TABLE `tbl_ciudades` (
   `CIUD_NOMBRE` varchar(45) NOT NULL,
   PRIMARY KEY (`CIUD_ID`),
   UNIQUE KEY `CIUD_NOMBRE_UNIQUE` (`CIUD_NOMBRE`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `tbl_ciudades` (
 
 LOCK TABLES `tbl_ciudades` WRITE;
 /*!40000 ALTER TABLE `tbl_ciudades` DISABLE KEYS */;
-INSERT INTO `tbl_ciudades` VALUES (14,'bogotá'),(18,'cartagena'),(21,'cucuta'),(16,'dibulla manaure'),(10,'Riohacha');
+INSERT INTO `tbl_ciudades` VALUES (14,'bogotá'),(18,'cartagena'),(21,'cucuta'),(16,'dibulla manaure'),(23,'juan'),(10,'Riohacha');
 /*!40000 ALTER TABLE `tbl_ciudades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +82,7 @@ CREATE TABLE `tbl_estado_pedi` (
   `ESPE_ID` int(11) NOT NULL AUTO_INCREMENT,
   `ESPE_ESTADO` varchar(45) NOT NULL,
   PRIMARY KEY (`ESPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,6 @@ CREATE TABLE `tbl_estado_pedi` (
 
 LOCK TABLES `tbl_estado_pedi` WRITE;
 /*!40000 ALTER TABLE `tbl_estado_pedi` DISABLE KEYS */;
-INSERT INTO `tbl_estado_pedi` VALUES (1,'Entregado'),(2,'En bodega'),(3,'Enviado');
 /*!40000 ALTER TABLE `tbl_estado_pedi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +116,7 @@ CREATE TABLE `tbl_pedidos` (
   CONSTRAINT `FK_PEDIDOS_TBLESTADOPEDI` FOREIGN KEY (`ESPE_ID`) REFERENCES `tbl_estado_pedi` (`ESPE_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_TBL_PEDIDOS_TBL_CIUDADES` FOREIGN KEY (`CIUD_ID`) REFERENCES `tbl_ciudades` (`CIUD_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_TBL_PEDIDOS_TBL_PERSONAS` FOREIGN KEY (`PERS_IDENTIFICACION`) REFERENCES `tbl_personas` (`PERS_IDENTIFICACION`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +125,6 @@ CREATE TABLE `tbl_pedidos` (
 
 LOCK TABLES `tbl_pedidos` WRITE;
 /*!40000 ALTER TABLE `tbl_pedidos` DISABLE KEYS */;
-INSERT INTO `tbl_pedidos` VALUES (2,'2005-05-01','pedido de prueba','calle 50',14,'1118837113',1);
 /*!40000 ALTER TABLE `tbl_pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,25 +285,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ciudadesGetAll` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ciudadesGetAll`()
-BEGIN
-select CIUD_NOMBRE from  TBL_CIUDADES ;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ciudadesModificar` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -339,63 +318,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `cuidadesInsertar`(nombreciudad varc
 BEGIN
 
 insert into tbl_ciudades (ciud_nombre) values(nombreciudad);
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `detallePedidoInsertar` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `detallePedidoInsertar`(
-DEPE_ID int(11),
-DEPE_CANT int (11),
-PEDI_ID bigint(15),
-PROD_ID varchar(45)
-)
-BEGIN
-
-
-insert into tbl_detalle_pedido (
-DEPE_ID,
-DEPE_CANT,
-PEDI_ID,
-PROD_ID
-)
-values(
-DEPE_ID,
-DEPE_CANT,
-PEDI_ID,
-PROD_ID
-);
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `estadoPedidosGetAll` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `estadoPedidosGetAll`()
-BEGIN
-select ESPE_ESTADO from  tbl_estado_pedi ;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -475,142 +397,6 @@ _PERS_SEXO ,
 _PERS_FECHANA  
 
 );
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `pedidosEliminar` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pedidosEliminar`(
-
-PEDI_ID bigint(15)
-)
-BEGIN
-
-delete  from tbl_pedidos where PEDI_ID= PEDI_ID;
-
-
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `pedidosInsertar` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pedidosInsertar`(
-
-PEDI_ID bigint(15),
-PEDI_FECHA date,
-PEDI_OBSERVACION varchar(45),
-PEDI_DIRECCION varchar(45),
-CIUD_ID int(11),
-PERS_IDENTIFICACION  varchar(45),
-ESPE_ID int (11)
-)
-BEGIN
-
-
-insert into tbl_pedidos (
-PEDI_ID ,
-PEDI_FECHA ,
-PEDI_OBSERVACION ,
-PEDI_DIRECCION ,
-CIUD_ID ,
-PERS_IDENTIFICACION  ,
-ESPE_ID 
-)
-values(
-PEDI_ID ,
-PEDI_FECHA ,
-PEDI_OBSERVACION,
-PEDI_DIRECCION, 
-CIUD_ID,
-PERS_IDENTIFICACION,
-ESPE_ID 
-);
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `pedidosMax` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pedidosMax`()
-BEGIN
-select  max(pedi_id)+1 as maxPedido
- from tbl_pedidos;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `pedidosModificar` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pedidosModificar`(
-
-PEDI_ID bigint(15),
-PEDI_FECHA date,
-PEDI_OBSERVACION varchar(45),
-PEDI_DIRECCION varchar(45),
-CIUD_ID int(11),
-PERS_IDENTIFICACION  varchar(45),
-ESPE_ID int (11)
-)
-BEGIN
-
-
-update  tbl_pedidos SET 
-
-PEDI_FECHA =PEDI_FECHA,
-PEDI_OBSERVACION =PEDI_OBSERVACION ,
-PEDI_DIRECCION =PEDI_DIRECCION,
-CIUD_ID=CIUD_ID ,
-PERS_IDENTIFICACION=PERS_IDENTIFICACION  ,
-ESPE_ID=ESPE_ID
- WHERE  
- PEDI_ID = PEDI_ID;
-
-
 
 END ;;
 DELIMITER ;
@@ -871,4 +657,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-06 10:04:50
+-- Dump completed on 2018-11-30 18:42:46
