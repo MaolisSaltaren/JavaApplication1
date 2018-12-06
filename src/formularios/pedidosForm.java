@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.table.*;
 import misClases.conexionBD;
 
@@ -24,21 +26,24 @@ public class pedidosForm extends javax.swing.JDialog {
      */
     public pedidosForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         // carga los pedidos en un jtable al iniciar la aplicacion
         initComponents();
-        
+
         // busca el ultimo pedido guardado y genera un consecutuvo
         selectMax("call pedidosMax()");
-       
-    
+        
+            
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        popopMenu = new javax.swing.JPopupMenu();
+        popopModificarCantidad = new javax.swing.JMenuItem();
+        popopEliminarItem = new javax.swing.JMenuItem();
+        popopEliminarTodo = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -80,11 +85,11 @@ public class pedidosForm extends javax.swing.JDialog {
         tableListadoProductos = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        txtTotalFactura = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jpanelProductos = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -92,6 +97,22 @@ public class pedidosForm extends javax.swing.JDialog {
         txtBuscarProductos = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         btnBuscarProductos = new javax.swing.JButton();
+
+        popopModificarCantidad.setText("Modificar Cantidad");
+        popopModificarCantidad.setName("dsdsd"); // NOI18N
+        popopModificarCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popopModificarCantidadActionPerformed(evt);
+            }
+        });
+        popopMenu.add(popopModificarCantidad);
+
+        popopEliminarItem.setText("EliminarProducto");
+        popopEliminarItem.setToolTipText("");
+        popopMenu.add(popopEliminarItem);
+
+        popopEliminarTodo.setText("Eliminar Todos los item");
+        popopMenu.add(popopEliminarTodo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -145,6 +166,7 @@ public class pedidosForm extends javax.swing.JDialog {
 
         btnNuevoCliente.setText("Nuevo");
 
+        txtNombreCliente.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtNombreCliente.setText("Nobre del cliente");
         txtNombreCliente.setEnabled(false);
 
@@ -177,7 +199,7 @@ public class pedidosForm extends javax.swing.JDialog {
                         .addComponent(btnBuscarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevoCliente)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +222,7 @@ public class pedidosForm extends javax.swing.JDialog {
 
         panelClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
-        jLabel6.setText("Busqueda de productos ");
+        jLabel6.setText("Busqueda de Clientes");
 
         tableListadoClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,21 +296,25 @@ public class pedidosForm extends javax.swing.JDialog {
             }
         });
 
+        txtStok.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtStok.setEnabled(false);
 
+        txtIdproducto.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtIdproducto.setEnabled(false);
 
         jLabel10.setText("Nombre:");
 
-        txtnombreProducto.setText("Flor margarita");
+        txtnombreProducto.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtnombreProducto.setEnabled(false);
 
         jLabel11.setText("Existencia:");
 
         jLabel12.setText("Vr Total");
 
+        txtVrTotal.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtVrTotal.setEnabled(false);
 
+        txtVrUnitario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtVrUnitario.setEnabled(false);
 
         jLabel13.setText("Vr Unitario:");
@@ -301,13 +327,18 @@ public class pedidosForm extends javax.swing.JDialog {
         });
 
         jButton1.setText("-");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +400,7 @@ public class pedidosForm extends javax.swing.JDialog {
                     .addComponent(txtVrTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddProducto)
                     .addComponent(jButton1))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -382,6 +413,12 @@ public class pedidosForm extends javax.swing.JDialog {
                 "null"
             }
         ));
+        tableListadoProductos.setComponentPopupMenu(popopMenu);
+        tableListadoProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableListadoProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableListadoProductos);
         tableListadoProductos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -418,11 +455,8 @@ public class pedidosForm extends javax.swing.JDialog {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jTextField1.setEnabled(false);
-
         jLabel14.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel14.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 153, 0));
         jLabel14.setText("Total a  pagar ");
 
@@ -432,6 +466,8 @@ public class pedidosForm extends javax.swing.JDialog {
 
         jButton8.setText("cancelar");
 
+        txtTotalFactura.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -440,8 +476,8 @@ public class pedidosForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton8)
@@ -452,13 +488,13 @@ public class pedidosForm extends javax.swing.JDialog {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(jButton6)
                     .addComponent(jButton7)
-                    .addComponent(jButton8))
+                    .addComponent(jButton8)
+                    .addComponent(txtTotalFactura))
                 .addContainerGap())
         );
 
@@ -540,7 +576,7 @@ public class pedidosForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -582,7 +618,7 @@ public class pedidosForm extends javax.swing.JDialog {
                                 .addComponent(panelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jpanelProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11))
         );
 
@@ -591,78 +627,159 @@ public class pedidosForm extends javax.swing.JDialog {
 
     private void btnIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrActionPerformed
         // TODO add your handling code here
-        searchNombreCliente(" select PERS_NOMBRE from tbl_personas where PERS_IDENTIFICACION = '"+txtIdCliente.getText()+"';");
+        searchNombreCliente(" select PERS_NOMBRE from tbl_personas where PERS_IDENTIFICACION = '" + txtIdCliente.getText() + "';");
     }//GEN-LAST:event_btnIrActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         // TODO add your handling code here:
-           mostrarClientes("call personasBusqueda('')");
+        mostrarClientes("call personasBusqueda('')");
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
         // TODO add your handling code here:
-        mostrarClientes("call personasBusqueda('"+txtBuscarClientes.getText().toString()+"');");
+        mostrarClientes("call personasBusqueda('" + txtBuscarClientes.getText().toString() + "');");
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
 
     private void tableListadoClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListadoClientesMouseClicked
-      
-        int seleccion=tableListadoClientes.getSelectedRow();
         
+        int seleccion = tableListadoClientes.getSelectedRow();
+
         //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna   
-         txtIdCliente.setText(String.valueOf(tableListadoClientes.getValueAt(seleccion, 0)));
-         txtNombreCliente.setText(String.valueOf(tableListadoClientes.getValueAt(seleccion, 1))); 
+        txtIdCliente.setText(String.valueOf(tableListadoClientes.getValueAt(seleccion, 0)));
+        txtNombreCliente.setText(String.valueOf(tableListadoClientes.getValueAt(seleccion, 1)));        
     }//GEN-LAST:event_tableListadoClientesMouseClicked
 
     private void tableBuscarProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBuscarProductosMouseClicked
         // TODO add your handling code here:
-         int seleccion=tableBuscarProductos.getSelectedRow();
-        
+        int seleccion = tableBuscarProductos.getSelectedRow();
+
         //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
-       
-         txtIdproducto.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 0)));
-         txtnombreProducto.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 1)));
-         txtStok.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 2)));
-         txtVrUnitario.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 3)));
+        txtIdproducto.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 0)));
+        txtnombreProducto.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 1)));
+        txtStok.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 2)));
+        txtVrUnitario.setText(String.valueOf(tableBuscarProductos.getValueAt(seleccion, 3)));
+     
+    
         
+
     }//GEN-LAST:event_tableBuscarProductosMouseClicked
 
     private void btnBuscarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductosActionPerformed
         // TODO add your handling code here:
-         mostrarProductos("call productosBusqueda('"+txtBuscarProductos.getText().toString()+"');");
+        mostrarProductos("call productosBusqueda('" + txtBuscarProductos.getText().toString() + "');");
     }//GEN-LAST:event_btnBuscarProductosActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-         mostrarProductos("call productosBusqueda('');");
+        mostrarProductos("call productosBusqueda('');");
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+   double sumaTotalProd=0;
     private void btnAddProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductoActionPerformed
-       
-         DefaultTableModel modeloProductos = (DefaultTableModel)tableListadoProductos.getModel();
-       
-           modeloProductos.setColumnIdentifiers(new Object[]{
-            "Id","NOMBRE", "cantidad","STOCK","VR. UNITARIO","VR. TOTAL"});
-      
-       
-            
-                modeloProductos.addRow(new Object[]{txtIdproducto.getText(),
-                                                                 txtnombreProducto.getText(),
-                                                                 txtCantidad.getText(),
-                                                                 txtStok.getText(),
-                                                                 txtVrUnitario.getText(),
-                                                                 txtVrUnitario.getText(),
-                                                                 txtVrTotal.getText()
+        //bandera 
+        int bandera = 0;
+         
 
-                                                         });
-          
+        // captura el id del producto de la caja de texto esto para validar que no se ingresen dos productos iguales
+        String idProducto;
+        idProducto = txtIdproducto.getText();
+
+        // captura los  datos introducidos en  cantidad y exixtencia
+        double cantidad;
+        double existencia;
+        
+        if(txtIdproducto.getText().isEmpty() )
+        
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un  producto de la lista  ");
+        else if(txtCantidad.getText().isEmpty())
+            JOptionPane.showMessageDialog(null, "Por favor ingrese la cantidad a vender");
+        else{
+            
+        cantidad = Double.valueOf(txtCantidad.getText());
+        existencia = Double.valueOf(txtStok.getText());
+        
+        if (cantidad > existencia) {
+            JOptionPane.showMessageDialog(null, "  la cantidad a vender no  puede exceder  del stok en bodega");
+        } else {
+
+                    if(this.tableListadoProductos.getRowCount()==0 && this.tableListadoProductos.getSelectedRow()==-1){
+
+                             //JOptionPane.showMessageDialog(null, " table esta vacia ");
+                             insertartable();
+                             sumaTotalesProd();
+                          
+                    }
+                    else{
+
+                            for (int i = 0; i < tableListadoProductos.getRowCount(); i++) 
+                            {
+                                // valida que no se repitan nos productos con el mismo id
+                                String val = tableListadoProductos.getValueAt(i, 0).toString().trim();
+  
+                                
+                                if (idProducto.equals(val)) {
+                                    //JOptionPane.showMessageDialog(null, " elento agregado juan  ");
+                                    bandera = 1;
+
+                                }
+
+                            }
+                            // valida si el elemento a ingresar ya esta en la lista
+                            if (bandera == 1) {
+                                JOptionPane.showMessageDialog(null, "el elemento ya se encuentra en la lista ");
+
+                            } else {
+                                insertartable();
+                                bandera = 0;      
+                                sumaTotalesProd();
+                             
+                            }
+                   
+               }
        
-               
-     
+        }
+        }
+        
+
     }//GEN-LAST:event_btnAddProductoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+               //pone el foco en la el vr unitario 
+        txtVrUnitario.requestFocus();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      // con este metodo se obtiene el total de la factura 
+        sumaTotalesProd();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tableListadoProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListadoProductosMouseClicked
+    
+        /*JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem menuItemAdd = new JMenuItem("Modificar Cantidad");
+        JMenuItem menuItemRemove = new JMenuItem("Eliminar Producto");
+        JMenuItem menuItemRemoveAll = new JMenuItem("Borrar todos los productos");
+        popupMenu.add(menuItemAdd);
+        popupMenu.add(menuItemRemove);
+        popupMenu.add(menuItemRemoveAll);
+        tableListadoProductos.setComponentPopupMenu(popupMenu);
+        */
+    }//GEN-LAST:event_tableListadoProductosMouseClicked
+
+    private void popopModificarCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popopModificarCantidadActionPerformed
+        // TODO add your handling code here:
+    double can=0;
+         int fila = tableBuscarProductos.getSelectedRow();
+        
+        //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
+     can = Double.valueOf(String.valueOf(tableBuscarProductos.getValueAt(fila, 2)));
+     JOptionPane.showMessageDialog(null, "el elemento a modificar es "+can);
+     
+     
+     
+     
+    }//GEN-LAST:event_popopModificarCantidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -704,109 +821,143 @@ public class pedidosForm extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
-    }    
+    }
     //------------------------------------------------------------------------------------
     //metodo que agarra el ultimo pedido y le suma 1 para luego mostrarlo en el label de contador 
-   String maxPedido;
-       public void selectMax(String cosulta) {       
-           Connection cn = conexionBD.getConexion();
-         try
-         {
-             Statement st= cn.createStatement();
-             ResultSet rs=st.executeQuery(cosulta);
-             if(rs.first())
-             {
-                maxPedido= rs.getString("maxPedido");
-               // JOptionPane.showMessageDialog(null," "+maxPedido);  
-             }         
-         }
-         catch(Exception e ){
-             JOptionPane.showMessageDialog(null, e.toString());   
-         }       
-        labelMaxPedido.setText(String.valueOf(maxPedido));     
-    }    
-       //----------------------------------------------------------------------------------
-    //metodo que busca un cliente por id 
-       
-        public void searchNombreCliente(String cosulta) {  
-           
-           Connection cn = conexionBD.getConexion();
-         try
-         {
-             Statement st= cn.createStatement();
-             ResultSet rs=st.executeQuery(cosulta);
-             if(rs.first())
-             {                
-                 //labelMaxPedido.setText(String.valueOf(rs.getString("pers_identificacion")));  
-                 txtNombreCliente.setText(String.valueOf(rs.getString("PERS_NOMBRE")));                  
-             }     
-         }
-         catch(Exception e ){
-             JOptionPane.showMessageDialog(null, e.toString());   
-         }               
+    String maxPedido;
+
+    public void selectMax(String cosulta) {        
+        Connection cn = conexionBD.getConexion();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(cosulta);
+            if (rs.first()) {
+                maxPedido = rs.getString("maxPedido");
+                // JOptionPane.showMessageDialog(null," "+maxPedido);  
+            }            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString());            
+        }        
+        labelMaxPedido.setText(String.valueOf(maxPedido));        
     }
+    //----------------------------------------------------------------------------------
+    //metodo que busca un cliente por id 
+    
+    public void searchNombreCliente(String cosulta) {        
         
-     //------------------------------------------------------------------------------
-        //listado de clientes
-        private void mostrarClientes( String consulta) {
+        Connection cn = conexionBD.getConexion();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(cosulta);
+            if (rs.first()) {
+                //labelMaxPedido.setText(String.valueOf(rs.getString("pers_identificacion")));  
+                txtNombreCliente.setText(String.valueOf(rs.getString("PERS_NOMBRE")));                
+            }            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString());            
+        }        
+    }
+
+    //------------------------------------------------------------------------------
+    //listado de clientes
+    private void mostrarClientes(String consulta) {
         
-        DefaultTableModel modelo = new  DefaultTableModel();
-        ResultSet rs =conexionBD.getTabla(consulta);
+        DefaultTableModel modelo = new DefaultTableModel();
+        ResultSet rs = conexionBD.getTabla(consulta);
         modelo.setColumnIdentifiers(new Object[]{
-            "Id", "NOMBRE","TELEFONO"});
+            "Id", "NOMBRE", "TELEFONO"});
         
-        try
-        {
-            while(rs.next())
-            {
+        try {
+            while (rs.next()) {
                 modelo.addRow(new Object[]{
-                        rs.getString("PERS_IDENTIFICACION"),
-          
-                        rs.getString("PERS_NOMBRE"),
-                        rs.getString("PERS_TELEFONO")
+                    rs.getString("PERS_IDENTIFICACION"),
+                    rs.getString("PERS_NOMBRE"),
+                    rs.getString("PERS_TELEFONO")
                 
                 });
             }
             tableListadoClientes.setModel(modelo);
             
-        }
-        catch (Exception e){JOptionPane.showMessageDialog(null,"Error"+e.toString());} 
-        }
-        //--------------------------------------------------------------------------------
-         
-        // metodo que muestra en  el jtable espeficicado el todos los productos 
-        private void mostrarProductos( String consulta) {
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }        
+    }
+    //--------------------------------------------------------------------------------
+
+    // metodo que muestra en  el jtable espeficicado el todos los productos 
+    private void mostrarProductos(String consulta) {
         
-        DefaultTableModel modelo = new  DefaultTableModel();
-        ResultSet rs =conexionBD.getTabla(consulta);
+        DefaultTableModel modelo = new DefaultTableModel();
+        ResultSet rs = conexionBD.getTabla(consulta);
         modelo.setColumnIdentifiers(new Object[]{
-            "Id","NOMBRE", "STOCK","PRECIO"});
+            "Id", "NOMBRE", "STOCK", "PRECIO"});
         
-        try
-        {
-            while(rs.next())
-            {
+        try {
+            while (rs.next()) {
                 modelo.addRow(new Object[]{
-                        rs.getString("PROD_ID"),
-                        rs.getString("PROD_NOMBRE"),
-                        rs.getString("PROD_STOK"),
-                        rs.getString("PROD_PRECIO")
-                      
+                    rs.getString("PROD_ID"),
+                    rs.getString("PROD_NOMBRE"),
+                    rs.getString("PROD_STOK"),
+                    rs.getString("PROD_PRECIO")
+                
                 });
             }
             tableBuscarProductos.setModel(modelo);
             
-        }
-        catch (Exception e){JOptionPane.showMessageDialog(null,"Error"+e.toString());} 
-        }
-          
-       
-      
-          
-           
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }        
+    }
+    //----------------------------------------------------------------------------------
+   // metdo que inserta  filas en  un jtable
+    public void insertartable() {
+        double totalventa;
+   
         
-          
-          
+        totalventa =Double.valueOf(txtCantidad.getText())* Double.valueOf(txtVrUnitario.getText());
+         
+        DefaultTableModel modeloProductos = (DefaultTableModel) tableListadoProductos.getModel();
+        modeloProductos.setColumnIdentifiers(new Object[]{
+            "Id", "NOMBRE", "CANTIDAD", "STOCK", "VR. UNITARIO", "VR. TOTAL"});
+        
+        modeloProductos.addRow(new Object[]{
+            txtIdproducto.getText(),
+            txtnombreProducto.getText(),
+            txtCantidad.getText(),
+            txtStok.getText(),
+            txtVrUnitario.getText(),
+            String.valueOf(totalventa)
+    
+        });
+    }
+    
+    double valor=0;     
+    double vrTotal =0;
+    // suma los valores totales de los productos agregados
+    public  void sumaTotalesProd()
+    {
+     
+      vrTotal=0;
+      valor=0;
+       try  
+       {
+            for(int i =0 ; i<tableListadoProductos.getRowCount();i++)
+            {
+                valor = Double.valueOf(tableListadoProductos.getValueAt(i, 5).toString().trim());
+                vrTotal= vrTotal+ valor;
+                //JOptionPane.showMessageDialog(null, vrTotal);
+            }
+            txtTotalFactura.setText(String.valueOf(vrTotal));
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, "Error"+e.toString());
+           
+       }
+        
+       
+    }
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProducto;
@@ -842,14 +993,16 @@ public class pedidosForm extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel jpanelProductos;
     private javax.swing.JLabel labelMaxPedido;
     private javax.swing.JPanel panelClientes;
+    private javax.swing.JMenuItem popopEliminarItem;
+    private javax.swing.JMenuItem popopEliminarTodo;
+    private javax.swing.JPopupMenu popopMenu;
+    private javax.swing.JMenuItem popopModificarCantidad;
     private javax.swing.JTable tableBuscarProductos;
     private javax.swing.JTable tableListadoClientes;
     private javax.swing.JTable tableListadoProductos;
@@ -860,8 +1013,11 @@ public class pedidosForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtIdproducto;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtStok;
+    private javax.swing.JLabel txtTotalFactura;
     private javax.swing.JTextField txtVrTotal;
     private javax.swing.JTextField txtVrUnitario;
     private javax.swing.JTextField txtnombreProducto;
     // End of variables declaration//GEN-END:variables
+
+    
 }
