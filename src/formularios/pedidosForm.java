@@ -109,6 +109,11 @@ public class pedidosForm extends javax.swing.JDialog {
 
         popopEliminarItem.setText("EliminarProducto");
         popopEliminarItem.setToolTipText("");
+        popopEliminarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popopEliminarItemActionPerformed(evt);
+            }
+        });
         popopMenu.add(popopEliminarItem);
 
         popopEliminarTodo.setText("Eliminar Todos los item");
@@ -751,16 +756,17 @@ public class pedidosForm extends javax.swing.JDialog {
 
     private void popopModificarCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popopModificarCantidadActionPerformed
         // TODO add your handling code here:
-
-         int fila = tableListadoProductos.getSelectedRow();
+        //1. se establece la celda seleccionada 
+        int fila = tableListadoProductos.getSelectedRow();
         double vrUnit= Double.valueOf( tableListadoProductos.getValueAt(fila, 4).toString().trim());
-        double valstok= Double.valueOf( tableListadoProductos.getValueAt(fila, 3).toString().trim());       
-         
+        double valstok= Double.valueOf( tableListadoProductos.getValueAt(fila, 3).toString().trim());      
+        
+         //2. muestra un menu  input para digitar la cantidad a ingresar
          double valorInput=Double.valueOf(JOptionPane.showInputDialog("Ingrese la cantidad a modificar menor a stock="+valstok));
-         JOptionPane.showMessageDialog(null, "el valor es ="+valorInput);
-         
+         //3. se valida que la cantidad no sea cero y que no supere el stok 
          if(valorInput != 0 && valstok!=0 && valorInput<= valstok)
          {
+             //3.1 se agregan los valores y se hace un recalculo de los valores en la table
          tableListadoProductos.setValueAt(valorInput, fila, 2);
          tableListadoProductos.setValueAt(valorInput*vrUnit, fila, 5);
          sumaTotalesProd();
@@ -768,9 +774,32 @@ public class pedidosForm extends javax.swing.JDialog {
          else{
              JOptionPane.showMessageDialog(null , "La cantidad ingresada supera el valor en stock ");}
              
-            
-        
+  
     }//GEN-LAST:event_popopModificarCantidadActionPerformed
+
+    private void popopEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popopEliminarItemActionPerformed
+      int fila = tableListadoProductos.getSelectedRow();
+        double id= Double.valueOf( tableListadoProductos.getValueAt(fila, 0).toString().trim());
+
+
+    try
+    {
+                   DefaultTableModel dtm = (DefaultTableModel) tableListadoProductos.getModel(); //TableProducto es el nombre de mi tabla ;) 
+dtm.removeRow(tableListadoProductos.getSelectedRow()); 
+            
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null, "no se pudo eliminar la fila"+e.toString());
+        
+    }
+   
+       
+      
+       sumaTotalesProd();
+       JOptionPane.showMessageDialog(null , " clic en eliminar roducto");
+      
+    }//GEN-LAST:event_popopEliminarItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -841,7 +870,7 @@ public class pedidosForm extends javax.swing.JDialog {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(cosulta);
             if (rs.first()) {
-                //labelMaxPedido.setText(String.valueOf(rs.getString("pers_identificacion")));  
+              
                 txtNombreCliente.setText(String.valueOf(rs.getString("PERS_NOMBRE")));                
             }            
         } catch (Exception e) {
