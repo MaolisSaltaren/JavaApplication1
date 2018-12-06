@@ -414,11 +414,6 @@ public class pedidosForm extends javax.swing.JDialog {
             }
         ));
         tableListadoProductos.setComponentPopupMenu(popopMenu);
-        tableListadoProductos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableListadoProductosMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tableListadoProductos);
         tableListadoProductos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -754,31 +749,27 @@ public class pedidosForm extends javax.swing.JDialog {
         sumaTotalesProd();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void tableListadoProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListadoProductosMouseClicked
-    
-        /*JPopupMenu popupMenu = new JPopupMenu();
-        JMenuItem menuItemAdd = new JMenuItem("Modificar Cantidad");
-        JMenuItem menuItemRemove = new JMenuItem("Eliminar Producto");
-        JMenuItem menuItemRemoveAll = new JMenuItem("Borrar todos los productos");
-        popupMenu.add(menuItemAdd);
-        popupMenu.add(menuItemRemove);
-        popupMenu.add(menuItemRemoveAll);
-        tableListadoProductos.setComponentPopupMenu(popupMenu);
-        */
-    }//GEN-LAST:event_tableListadoProductosMouseClicked
-
     private void popopModificarCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popopModificarCantidadActionPerformed
         // TODO add your handling code here:
-    double can=0;
-         int fila = tableBuscarProductos.getSelectedRow();
+
+         int fila = tableListadoProductos.getSelectedRow();
+        double vrUnit= Double.valueOf( tableListadoProductos.getValueAt(fila, 4).toString().trim());
+        double valstok= Double.valueOf( tableListadoProductos.getValueAt(fila, 3).toString().trim());       
+         
+         double valorInput=Double.valueOf(JOptionPane.showInputDialog("Ingrese la cantidad a modificar menor a stock="+valstok));
+         JOptionPane.showMessageDialog(null, "el valor es ="+valorInput);
+         
+         if(valorInput != 0 && valstok!=0 && valorInput<= valstok)
+         {
+         tableListadoProductos.setValueAt(valorInput, fila, 2);
+         tableListadoProductos.setValueAt(valorInput*vrUnit, fila, 5);
+         sumaTotalesProd();
+         }
+         else{
+             JOptionPane.showMessageDialog(null , "La cantidad ingresada supera el valor en stock ");}
+             
+            
         
-        //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
-     can = Double.valueOf(String.valueOf(tableBuscarProductos.getValueAt(fila, 2)));
-     JOptionPane.showMessageDialog(null, "el elemento a modificar es "+can);
-     
-     
-     
-     
     }//GEN-LAST:event_popopModificarCantidadActionPerformed
 
     /**
