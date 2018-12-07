@@ -5,14 +5,11 @@ package misClases;
 // en esta clase se encuentran los metodos principales que permite a java conectarse al servidor mysq y tener accco a
 // los tados 
 
-import static java.lang.Class.forName;
-import java.awt.HeadlessException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import static java.lang.Class.forName;
 import java.awt.HeadlessException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -144,6 +141,46 @@ public class conexionBD {
             if(resultado>0)
             {
                     JOptionPane.showMessageDialog(null, "Operacion exitosa :) ");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, " no se guardo el registro");
+                        
+            }
+            
+           getConexion().close();// cierra la conexion con la base de datos
+            
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+        } 
+     
+        return resultado;
+        
+          
+    }
+     
+     //--------------------------------------------------------------------------------------------------
+    // metodo especifico para guardar los detalles del pedido
+     
+         public  int InsertarDetallePedi(String insert)
+    {      
+     
+       int resultado=0;
+     
+        // ejemplo de vectore en java
+
+          //  JOptionPane.showMessageDialog(null, ""+insert);
+     
+      try
+        {
+            PreparedStatement parametros=getConexion().prepareStatement(insert);
+            
+              resultado = parametros.executeUpdate(); //actualiza la bd
+   
+            if(resultado>0)
+            {
+                    //JOptionPane.showMessageDialog(null, "Operacion exitosa :) ");
             }
             else
             {

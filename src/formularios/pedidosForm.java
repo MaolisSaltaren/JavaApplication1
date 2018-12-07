@@ -843,6 +843,35 @@ public class pedidosForm extends javax.swing.JDialog {
              
              JOptionPane.showMessageDialog(null,"Debe agregar  por lo menos un producto ");
          }
+     else
+     {
+         //garda los datos correspondientes a la tabla pedidos
+            try   
+            {
+                
+             conexionBD insertaPedido = new conexionBD();
+            insertaPedido.ejecutarSQL("call pedidosInsertar("
+                    +"'"+lblFechaActual.getText()+"',"
+                    // +"'"+cmbTiponto1.getSelectedItem().toString()+"',"
+                    +"'"+ txtObservacion.getText()+"',"
+                    +"'"+ txtDireccion.getText()+"',"
+                    +"'"+ txtIdCliente.getText()
+                    +"');");
+            
+             for (int i =0;i < tableListadoProductos.getColumnCount();i++)
+             {
+                 
+             }
+
+
+            }
+            catch (Exception e )
+            {
+                JOptionPane.showMessageDialog(null," No se ha pidido realizar la operacion por favor, verifique que el formato "
+                        + "de la fecha sea correcto y que  todos los campos esten correctamente diligenciados Eror= "+e.toString()
+                );
+            }
+     }
      
         
             

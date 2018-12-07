@@ -351,7 +351,23 @@ public class clientesForm extends javax.swing.JDialog {
       //inserta un registro en la base de datos  
       
       //Date fechana= Date.valueOf(txtFechaNa.getText());
-      try   
+      
+      if(
+              txtIdentificacion.getText().isEmpty()||
+              txtFechaNa.getText().isEmpty()||
+              txtTelenofo.getText().isEmpty()||
+              txtNombre.getText().isEmpty()||
+              cmbSexo.getSelectedItem().equals("seleccione")||
+              cmbTipoDocumento1.getSelectedItem().equals("seleccione")
+              
+              
+              )
+      {
+          JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
+      }
+          else
+      {
+               try   
       {
         
       insertarCiudades.ejecutarSQL("call personasInsertar("
@@ -381,6 +397,8 @@ public class clientesForm extends javax.swing.JDialog {
       limpiarCajas();
       cmbSexo.setSelectedIndex(0);
       cmbTipoDocumento1.setSelectedIndex(0);
+              }
+     
     
     }//GEN-LAST:event_btnGuardarActionPerformed
 
